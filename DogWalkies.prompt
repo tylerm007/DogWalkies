@@ -1,0 +1,27 @@
+Role: Walker Use Case
+A Dog Walker can self register (Walker.FirstName, Walker.LastName, Walker.PostalCode, Walker.Phone, Walker.Email) all required columns
+Dog Walker can select days of week (Mon, Tues, Wed, Thurs, Fri, Sat, Sun)  and times they are available (morning, afternoon) 
+The Dog walker can set the maximum number of dogs per Walk.
+Walker can set the price for a walk (range $10 to max $50) based on Dog.Size [small, medium, large]
+Walker can see the request for Walk and reject or confirm the invitation
+Owner is emailed confirmation from Walker 
+Walker can see all Walk requests that match their availability and dog size
+
+Role: Owner Use Case
+Dog Owner can self register (Owner.Name, Owner, Address, Owner.Phone, Owner.Email) all required columns
+Owner can add one or more dogs (Dog.Name, Dog.Breed, Dog,Size [small, medium, large], Dog.Notes) 
+Owner can request a walk for one or more registered pets selecting Dog and matching available walker (day of week and time)
+Owners can only see their own records (Owner) and their own pets ( Dogs)
+Owners can see their historical WalkSchedule
+Owners can review the Walker after the Walk
+
+Payments Use Case
+Owner enters payment using 3rd party billing once the walk is completed.
+Payment is paid to Walker for Walk of one or more Dogs
+
+Role: Administration Use Case
+The Business Administrator can see all Walkers, Owners. And Payments records
+
+
+Add CreatedDate, UpdatedDate, and CreatedBy to every table
+

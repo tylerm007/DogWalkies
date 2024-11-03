@@ -1,0 +1,280 @@
+about:
+  date: November 03, 2024 13:13:02
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 5
+  number_tables: 5
+info_toggle_checked: true
+resources:
+  Dog:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: owner_id
+      required: true
+    - name: size
+      required: true
+    - name: notes
+    - name: created_date
+      type: DATE
+    - name: updated_date
+      type: DATE
+    - name: created_by
+    - name: id
+    - name: breed
+    description: Represents a dog belonging to an owner, with specific details needed
+      for walks.
+    info_list: Represents a dog belonging to an owner, with specific details needed
+      for walks.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - dog_id
+      name: WalkScheduleList
+      resource: WalkSchedule
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Owner
+    type: Dog
+    user_key: name
+  Owner:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: address
+      required: true
+    - name: phone
+      required: true
+    - name: email
+      required: true
+    - name: created_date
+      type: DATE
+    - name: updated_date
+      type: DATE
+    - name: created_by
+    - name: id
+    description: Represents a dog owner who can register themselves and their pets.
+    info_list: Represents a dog owner who can register themselves and their pets.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - owner_id
+      name: DogList
+      resource: Dog
+    - direction: tomany
+      fks:
+      - owner_id
+      name: WalkScheduleList
+      resource: WalkSchedule
+    type: Owner
+    user_key: name
+  Payment:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: walk_schedule_id
+      required: true
+    - name: amount
+      required: true
+    - name: created_date
+      type: DATE
+    - name: updated_date
+      type: DATE
+    - name: created_by
+    - name: date_paid
+      type: DATE
+    description: Handles the payment details for each completed walk.
+    info_list: Handles the payment details for each completed walk.
+    tab_groups:
+    - direction: toone
+      fks:
+      - walk_schedule_id
+      name: walk_schedule
+      resource: WalkSchedule
+    type: Payment
+    user_key: id
+  SPAPage:
+    attributes:
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+      sort: true
+    - name: id
+      required: true
+    - name: contact
+    hidden: true
+    tab_groups:
+    - direction: tomany
+      fks:
+      - page_id
+      name: SectionList
+      resource: Section
+    type: SPAPage
+    user_key: name
+  SPASection:
+    attributes:
+    - name: order
+      sort: true
+      type: number
+    - label: ' name*'
+      name: name
+      required: true
+      search: true
+    - name: page_id
+    - name: title
+      required: true
+    - name: subtitle
+    - name: label
+    - name: Type
+    - name: paragraph
+      type: textarea
+    - name: content
+      type: textarea
+    - name: id
+    - name: background
+    - name: template
+    - name: style
+      type: json
+    - name: hidden
+      type: boolean
+    hidden: true
+    sort: order
+    tab_groups:
+    - direction: toone
+      fks:
+      - page_id
+      name: page
+      resource: SPAPage
+    type: SPASection
+    user_key: name
+  WalkSchedule:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: dog_id
+      required: true
+    - name: owner_id
+      required: true
+    - name: walker_id
+      required: true
+    - name: status
+      required: true
+    - name: created_date
+      type: DATE
+    - name: updated_date
+      type: DATE
+    - name: created_by
+    - name: date_requested
+      required: true
+      type: DATE
+    description: Records the schedule of dog walks including matching walker with
+      owner and dog.
+    info_list: Records the schedule of dog walks including matching walker with owner
+      and dog.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - walk_schedule_id
+      name: PaymentList
+      resource: Payment
+    - direction: toone
+      fks:
+      - dog_id
+      name: dog
+      resource: Dog
+    - direction: toone
+      fks:
+      - owner_id
+      name: owner
+      resource: Owner
+    - direction: toone
+      fks:
+      - walker_id
+      name: walker
+      resource: Walker
+    type: WalkSchedule
+    user_key: id
+  Walker:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      required: true
+      search: true
+      sort: true
+    - name: last_name
+      required: true
+    - name: postal_code
+      required: true
+    - name: phone
+      required: true
+    - name: email
+      required: true
+    - name: max_dogs_per_walk
+      required: true
+    - name: base_price
+      required: true
+    - name: availability
+      required: true
+    - name: created_date
+      type: DATE
+    - name: updated_date
+      type: DATE
+    - name: created_by
+    - name: id
+    description: Represents a dog walker who can register and manage walk requests.
+    info_list: Represents a dog walker who can register and manage walk requests.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - walker_id
+      name: WalkScheduleList
+      resource: WalkSchedule
+    type: Walker
+    user_key: first_name
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
